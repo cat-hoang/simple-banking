@@ -5,6 +5,10 @@ export type TransferResult =
   | { status: "applied"; transfer: Transfer }
   | { status: "rejected"; transfer: Transfer; reason: string };
 
+export function applyTransfers(bank: Bank, transfers: Transfer[]): TransferResult[] {
+  return transfers.map((transfer) => applyTransfer(bank, transfer));
+}
+
 export function applyTransfer(bank: Bank, transfer: Transfer): TransferResult {
   const source = bank.get(transfer.from);
   if (!source) {
