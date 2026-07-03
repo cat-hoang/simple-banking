@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "tsx bin/run.ts",
-    "run:sample": "tsx bin/run.ts banking_account_balances.csv banking_transactions.csv",
+    "run:sample": "tsx bin/run.ts mable_account_balances.csv mable_transactions.csv",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
