@@ -3,27 +3,27 @@ import { Bank } from "../../src/models/bank";
 import { Account } from "../../src/models/account";
 
 describe("Bank", () => {
-  it("looks up an account it holds by number", () => {
+  it("should looks up an account it holds by number", () => {
     const account = new Account("1111234522226789", 500000);
     const bank = new Bank([account]);
 
     expect(bank.get("1111234522226789")).toBe(account);
   });
 
-  it("returns undefined for an unknown account", () => {
+  it("should returns undefined for an unknown account", () => {
     const bank = new Bank();
 
     expect(bank.get("0000000000000000")).toBeUndefined();
   });
 
-  it("reports whether an account is present", () => {
+  it("should reports whether an account is present", () => {
     const bank = new Bank([new Account("1111234522226789", 500000)]);
 
     expect(bank.has("1111234522226789")).toBe(true);
     expect(bank.has("0000000000000000")).toBe(false);
   });
 
-  it("exposes all held accounts", () => {
+  it("should exposes all held accounts", () => {
     const accounts = [
       new Account("1111234522226789", 500000),
       new Account("2222123433331212", 55000),
@@ -33,7 +33,7 @@ describe("Bank", () => {
     expect(bank.accounts()).toEqual(accounts);
   });
 
-  it("rejects a duplicate account number", () => {
+  it("should rejects a duplicate account number", () => {
     const bank = new Bank([new Account("1111234522226789", 500000)]);
 
     expect(() => bank.add(new Account("1111234522226789", 100))).toThrow();
