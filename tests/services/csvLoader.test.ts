@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { fileURLToPath } from "node:url";
-import { loadBalances } from "../../src/services/csvLoader";
+import { loadBalances, loadTransfers } from "../../src/services/csvLoader";
 
 const fixture = (name: string) =>
   fileURLToPath(new URL(`../fixtures/${name}`, import.meta.url));
@@ -34,5 +34,30 @@ describe("loadBalances", () => {
 
   it("should rejects a duplicate account number", () => {
     expect(() => loadBalances(fixture("balances_duplicate.csv"))).toThrow();
+  });
+});
+
+describe("loadTransfers", () => {
+  it("should load transfers with amounts as exact cents", () => {
+    const transfers = loadTransfers(fixture("transfers_valid.csv"));
+
+    expect(transfers).toHaveLength(2);
+    expect(transfers[0]).toMatchObject({
+      from: "1111234522226789",
+      to: "1212343433335665",
+      amount: 50000,
+    });
+  });
+
+  it("should reject a row with the wrong number of columns", () => {
+    expect(() => loadTransfers(fixture("transfers_wrong_columns.csv"))).toThrow();
+  });
+
+  it("should reject a row with an unparseable amount", () => {
+    expect(() => loadTransfers(fixture("transfers_bad_amount.csv"))).toThrow();
+  });
+
+  it("should reject a malformed account number", () => {
+    expect(() => loadTransfers(fixture("transfers_bad_account.csv"))).toThrow();
   });
 });
