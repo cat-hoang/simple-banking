@@ -1,0 +1,30 @@
+{
+  "name": "banking-transfer-service",
+  "version": "1.0.0",
+  "description": "A simple banking transfer service: load account balances and apply a day's transfers from CSV.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "tsx bin/run.ts",
+    "run:sample": "tsx bin/run.ts banking_account_balances.csv banking_transactions.csv",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "keywords": [
+    "banking",
+    "csv",
+    "typescript"
+  ],
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@vitest/coverage-v8": "^3.2.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}
