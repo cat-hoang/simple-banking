@@ -1,6 +1,6 @@
-import { loadBalances, loadTransfers } from "../src/services/csvLoader";
-import { applyTransfers } from "../src/services/transferService";
-import { formatBalances, formatReport } from "../src/services/reportService";
+import { loadBalances, loadTransfers } from "./services/csvLoader";
+import { applyTransfers } from "./services/transferService";
+import { formatBalances, formatReport } from "./services/reportService";
 
 function main(argv: string[]): void {
   const [balancesPath, transfersPath] = argv.slice(2);

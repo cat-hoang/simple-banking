@@ -86,10 +86,10 @@ src/
 │   ├── transferService.ts  apply one/many transfers -> applied | rejected(reason)
 │   ├── csvLoader.ts        parse CSV into models (the only file I/O)
 │   └── reportService.ts    format balances & transfer results as feedback
-└── utils/          pure, reusable helpers
-    ├── money.ts      parse/format between "320.50" and integer cents
-    └── csv.ts        low-level CSV row/field parsing
-bin/run.ts           CLI: wires loader -> service -> report
+├── utils/          pure, reusable helpers
+│   ├── money.ts      parse/format between "320.50" and integer cents
+│   └── csv.ts        low-level CSV row/field parsing
+└── run.ts          CLI: wires loader -> service -> report
 ```
 
 ### Key decisions
@@ -104,7 +104,7 @@ bin/run.ts           CLI: wires loader -> service -> report
 - **Rejections are values, not exceptions.** `applyTransfer` returns a discriminated
   union (`applied` / `rejected` with a reason), which makes batch processing a simple
   `map` and gives type-safe reporting.
-- **I/O is isolated.** Only `csvLoader` touches the filesystem and only `bin/run`
+- **I/O is isolated.** Only `csvLoader` touches the filesystem and only `src/run`
   writes to the console, so the domain and services are trivially unit-testable.
 - **Storage is in-memory** (`Bank` holds a `Map`), sized for one company and one day.
   Moving to a database would mean a repository behind `Bank` and a new loader — the
