@@ -21,7 +21,7 @@ npm install
 
 ```bash
 npm run run:sample                                  # uses the bundled sample CSVs
-npm start -- <balances.csv> <transfers.csv>         # any two files
+npm start <balances.csv> <transfers.csv>         # any two files
 ```
 
 Example output:
