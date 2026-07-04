@@ -13,6 +13,14 @@ export function applyTransfers(
 }
 
 export function applyTransfer(bank: Bank, transfer: Transfer): TransferResult {
+  if (transfer.amount <= 0) {
+    return reject(transfer, 'transfer amount must be positive');
+  }
+
+  if (transfer.from === transfer.to) {
+    return reject(transfer, 'cannot transfer to the same account');
+  }
+
   const source = bank.get(transfer.from);
   if (!source) {
     return reject(transfer, `unknown source account ${transfer.from}`);
