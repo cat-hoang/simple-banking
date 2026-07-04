@@ -1,10 +1,10 @@
-import { Bank } from "../models/bank";
-import { Account } from "../models/account";
-import { formatMoney } from "../utils/money";
-import { TransferResult } from "./transferService";
+import { Bank } from '../models/bank';
+import { Account } from '../models/account';
+import { formatMoney } from '../utils/money';
+import { TransferResult } from './transferService';
 
-type Applied = Extract<TransferResult, { status: "applied" }>;
-type Rejected = Extract<TransferResult, { status: "rejected" }>;
+type Applied = Extract<TransferResult, { status: 'applied' }>;
+type Rejected = Extract<TransferResult, { status: 'rejected' }>;
 
 export function formatReport(bank: Bank, results: TransferResult[]): string {
   const applied = results.filter(isApplied);
@@ -12,16 +12,16 @@ export function formatReport(bank: Bank, results: TransferResult[]): string {
 
   const sections = [
     `Transfers: ${applied.length} applied, ${rejected.length} rejected`,
-    section("Applied", applied.map(formatApplied)),
+    section('Applied', applied.map(formatApplied)),
   ];
 
   if (rejected.length > 0) {
-    sections.push(section("Rejected", rejected.map(formatRejected)));
+    sections.push(section('Rejected', rejected.map(formatRejected)));
   }
 
-  sections.push(formatBalances(bank, "Final balances"));
+  sections.push(formatBalances(bank, 'Final balances'));
 
-  return sections.join("\n\n");
+  return sections.join('\n\n');
 }
 
 export function formatBalances(bank: Bank, title: string): string {
@@ -29,11 +29,11 @@ export function formatBalances(bank: Bank, title: string): string {
 }
 
 function isApplied(result: TransferResult): result is Applied {
-  return result.status === "applied";
+  return result.status === 'applied';
 }
 
 function isRejected(result: TransferResult): result is Rejected {
-  return result.status === "rejected";
+  return result.status === 'rejected';
 }
 
 function formatApplied({ transfer }: Applied): string {
@@ -49,6 +49,6 @@ function formatBalance(account: Account): string {
 }
 
 function section(title: string, lines: string[]): string {
-  const body = lines.length > 0 ? lines.join("\n") : "  (none)";
+  const body = lines.length > 0 ? lines.join('\n') : '  (none)';
   return `${title}:\n${body}`;
 }

@@ -1,4 +1,4 @@
-import { Account } from "./account";
+import { Account } from './account';
 
 export class Bank {
   private readonly accountsByNumber = new Map<string, Account>();

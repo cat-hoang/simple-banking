@@ -12,8 +12,8 @@ export function parseMoney(input: string): Cents {
     throw new Error(`Invalid money value: "${input}"`);
   }
 
-  const [dollars, fraction = ""] = trimmed.split(".");
-  const cents = fraction.padEnd(2, "0");
+  const [dollars, fraction = ''] = trimmed.split('.');
+  const cents = fraction.padEnd(2, '0');
 
   return Number(dollars) * 100 + Number(cents);
 }
@@ -23,10 +23,10 @@ export function formatMoney(cents: Cents): string {
     throw new Error(`Cents must be an integer, got: ${cents}`);
   }
 
-  const sign = cents < 0 ? "-" : "";
+  const sign = cents < 0 ? '-' : '';
   const abs = Math.abs(cents);
   const dollars = Math.floor(abs / 100);
   const remainder = abs % 100;
 
-  return `${sign}${dollars}.${remainder.toString().padStart(2, "0")}`;
+  return `${sign}${dollars}.${remainder.toString().padStart(2, '0')}`;
 }

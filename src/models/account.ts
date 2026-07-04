@@ -1,4 +1,4 @@
-import type { Cents } from "../utils/money";
+import type { Cents } from '../utils/money';
 
 export class Account {
   constructor(
