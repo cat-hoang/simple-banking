@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { loadBalances, loadTransfers } from "../src/services/csvLoader";
 import { applyTransfers } from "../src/services/transferService";
 
-const sample = (name: string) => fileURLToPath(new URL(`../${name}`, import.meta.url));
+const sample = (name: string) => fileURLToPath(new URL(`../sample_files/${name}`, import.meta.url));
 
 describe("end-to-end day processing", () => {
   it("should apply the sample day's transfers and produce the expected balances", () => {
