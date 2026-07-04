@@ -71,6 +71,30 @@ npm run typecheck     # tsc --noEmit
 
 Account numbers are 16 digits. Amounts use up to two decimal places.
 
+## Assumptions
+
+- **No header row.** Every non-blank line is data; blank lines are ignored and
+  fields are trimmed.
+- **Simple CSV only.** Fields are split on commas — quoted fields, escaped commas,
+  and embedded newlines are not supported (account numbers and amounts never
+  contain them).
+- **Account numbers are exactly 16 digits;** amounts and balances are non-negative
+  with up to two decimal places — no sign, currency symbol, or thousands
+  separators. Values are a single, implied currency.
+- **Accounts must already exist.** Transfers reference accounts from the balances
+  file; they never create new ones.
+- **Transfers apply in file order** against a running balance, so a later transfer
+  sees the effect of earlier ones.
+- **A day is processed best-effort, not atomically.** A rejected transfer — unknown
+  account, insufficient funds, a self-transfer, or a non-positive amount — is
+  skipped and reported; it does not roll back transfers already applied.
+- **Malformed input aborts the load.** A structurally invalid row — wrong column
+  count, a non-16-digit account number, an unparseable amount, or a duplicate
+  account in the balances file — stops the run with an error, rather than being
+  reported as a per-transfer rejection.
+- **Everything fits in memory.** Files are read whole and balances held in a `Map`,
+  sized for one company's single day.
+
 ## Design
 
 Organised into three layers with a one-way dependency direction
