@@ -75,6 +75,25 @@ describe('applyTransfer', () => {
     expect(bank.get(SOURCE)?.balance).toBe(50000);
   });
 
+  it('should reject a transfer to the same account and leave the balance unchanged', () => {
+    const bank = bankWith(50000, 0);
+
+    const result = applyTransfer(bank, new Transfer(SOURCE, SOURCE, 100));
+
+    expect(result.status).toBe('rejected');
+    expect(bank.get(SOURCE)?.balance).toBe(50000);
+  });
+
+  it('should reject a zero-amount transfer and leave balances unchanged', () => {
+    const bank = bankWith(50000, 0);
+
+    const result = applyTransfer(bank, new Transfer(SOURCE, DESTINATION, 0));
+
+    expect(result.status).toBe('rejected');
+    expect(bank.get(SOURCE)?.balance).toBe(50000);
+    expect(bank.get(DESTINATION)?.balance).toBe(0);
+  });
+
   it('should include a reason on a rejected transfer', () => {
     const bank = bankWith(50000, 0);
 
