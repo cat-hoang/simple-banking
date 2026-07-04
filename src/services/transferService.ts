@@ -1,11 +1,14 @@
-import { Bank } from "../models/bank";
-import { Transfer } from "../models/transfer";
+import { Bank } from '../models/bank';
+import { Transfer } from '../models/transfer';
 
 export type TransferResult =
-  | { status: "applied"; transfer: Transfer }
-  | { status: "rejected"; transfer: Transfer; reason: string };
+  | { status: 'applied'; transfer: Transfer }
+  | { status: 'rejected'; transfer: Transfer; reason: string };
 
-export function applyTransfers(bank: Bank, transfers: Transfer[]): TransferResult[] {
+export function applyTransfers(
+  bank: Bank,
+  transfers: Transfer[],
+): TransferResult[] {
   return transfers.map((transfer) => applyTransfer(bank, transfer));
 }
 
@@ -26,9 +29,9 @@ export function applyTransfer(bank: Bank, transfer: Transfer): TransferResult {
 
   source.debit(transfer.amount);
   destination.credit(transfer.amount);
-  return { status: "applied", transfer };
+  return { status: 'applied', transfer };
 }
 
 function reject(transfer: Transfer, reason: string): TransferResult {
-  return { status: "rejected", transfer, reason };
+  return { status: 'rejected', transfer, reason };
 }

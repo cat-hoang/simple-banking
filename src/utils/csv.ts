@@ -3,5 +3,5 @@ export function parseCsv(content: string): string[][] {
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter((line) => line.length > 0)
-    .map((line) => line.split(",").map((field) => field.trim()));
+    .map((line) => line.split(',').map((field) => field.trim()));
 }
