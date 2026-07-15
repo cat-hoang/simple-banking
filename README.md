@@ -98,7 +98,11 @@ Account numbers are 16 digits. Amounts use up to two decimal places.
 ## Design
 
 Organised into three layers with a one-way dependency direction
-(`utils` ← `models` ← `services` ← entry point).
+
+```mermaid
+flowchart LR
+    run --> services --> models --> utils
+```
 
 ```
 src/
